@@ -27,10 +27,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if gallery.count == 0 {
             
-            createArt("LA", productIdentifier: "", imageName: "LA.jpg", purchased: true)
-            createArt("sunrise", productIdentifier: "com.losAngelesBoy.Store.sunrise", imageName: "sunrise.jpg", purchased: false)
-            createArt("trees", productIdentifier: "com.losAngelesBoy.Store.tree", imageName: "trees.jpg", purchased: false)
-            
+            updateContent()
             updateGallery()
             self.collectionView.reloadData()
         }
@@ -38,6 +35,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         requestProducts()
     }
     
+    // Request products from Apple
     func requestProducts() {
         let ids : Set<String> = ["com.losAngelesBoy.Store.tree", "com.losAngelesBoy.Store.sunrise"]
         let productsRequest = SKProductsRequest(productIdentifiers: ids)
@@ -45,6 +43,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         productsRequest.start()
     }
     
+    // Handling Apple response
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         print("Products ready: \(response.products.count)")
         print("Products not ready: \(response.invalidProductIdentifiers.count)")
@@ -52,12 +51,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.collectionView.reloadData()
     }
     
+    // Restore previous purchases
     @IBAction func restoreBtnTapped(_ sender: Any) {
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
+    // Creating payment queue
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        
         for transaction in transactions {
+            
             switch transaction.transactionState {
             case .purchased:
                 print("Purchased")
@@ -84,6 +87,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    // Show an art when purchased or restored
     func unlockArt(_ productIdentifier:String) {
         
         for art in self.gallery {
@@ -101,6 +105,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
+    // Creating arts from CoreData Entity -Art-
     func createArt(_ title:String, productIdentifier:String, imageName:String, purchased:Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.managedObjectContext
@@ -110,7 +115,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             art.title = title
             art.productIdentifier = productIdentifier
             art.imageName = imageName
-            art.purchased = NSNumber(value: purchased) as! Bool
+            art.purchased = purchased
         }
         
         do {
@@ -118,6 +123,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         } catch {}
     }
     
+    // Update gallery when needed
     func updateGallery() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.managedObjectContext
@@ -129,6 +135,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         } catch {}
     }
     
+    // Add gallery content
+    func updateContent() {
+        
+        createArt("LA", productIdentifier: "", imageName: "LA.jpg", purchased: true)
+        createArt("sunrise", productIdentifier: "com.losAngelesBoy.Store.sunrise", imageName: "sunrise.jpg", purchased: false)
+        createArt("trees", productIdentifier: "com.losAngelesBoy.Store.tree", imageName: "trees.jpg", purchased: false)
+    }
+    
+    // Collection View functions
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -164,6 +179,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             for product in self.products {
                 if product.productIdentifier == art.productIdentifier {
                     
+                    // Creating formatted string with currency
                     let formatter = NumberFormatter()
                     formatter.numberStyle = NumberFormatter.Style.currency
                     formatter.locale = product.priceLocale
