@@ -24,12 +24,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         updateGallery()
         
         if gallery.count == 0 {
-//            createArt("Horse", productIdentifier: "", imageName: "horse.jpeg", purchased: true)
-//            createArt("Bird", productIdentifier: "com.zappycode.thegallery.bird", imageName: "bird.jpeg", purchased: false)
-//            createArt("Baby", productIdentifier: "com.zappycode.thegallery.baby", imageName: "baby.jpeg", purchased: false)
-            createArt("Hello", productIdentifier: "", imageName: "", purchased: true)
-            createArt("Hello", productIdentifier: "", imageName: "", purchased: true)
-            createArt("Hello", productIdentifier: "", imageName: "", purchased: true)
+            
+            createArt("LA", productIdentifier: "", imageName: "LA.jpg", purchased: true)
+            createArt("sunrise", productIdentifier: "", imageName: "sunrise.jpg", purchased: false)
+            createArt("trees", productIdentifier: "", imageName: "trees.jpg", purchased: false)
+            
             updateGallery()
             self.collectionView.reloadData()
         }
@@ -73,7 +72,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artCell", for: indexPath) as! ArtCell
+        
+        let art = self.gallery[indexPath.row]
+        
+        cell.imageView.image = UIImage(named: art.imageName!)
+        cell.titleLbl.text = art.title!
+        
+        for subview in cell.imageView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        if art.purchased {
+            cell.purchasedLbl.isHidden = true
+        } else {
+            cell.purchasedLbl.isHidden = false
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            cell.layoutIfNeeded()
+            blurView.frame = cell.imageView.bounds
+            cell.imageView.addSubview(blurView)
+
+        }
+        
         return cell
     }
     

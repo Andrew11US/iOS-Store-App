@@ -47,8 +47,44 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="283" height="438"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LA.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-fp-irE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="283" height="388"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4V-9W-618">
+                                                    <rect key="frame" x="28" y="393" width="227" height="37"/>
+                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oy9-gS-FpU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="283" height="393"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.23147623440000001" green="0.71787226319999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="oy9-gS-FpU" firstAttribute="leading" secondItem="0f2-Gk-7VR" secondAttribute="leading" id="3Os-00-XjK"/>
+                                            <constraint firstItem="oy9-gS-FpU" firstAttribute="top" secondItem="0f2-Gk-7VR" secondAttribute="top" id="Lan-6s-1cm"/>
+                                            <constraint firstAttribute="trailing" secondItem="oy9-gS-FpU" secondAttribute="trailing" id="Oso-Xj-lux"/>
+                                            <constraint firstItem="B4V-9W-618" firstAttribute="top" secondItem="NmH-fp-irE" secondAttribute="bottom" constant="5" id="Pt9-n4-VEl"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="B4V-9W-618" secondAttribute="bottom" id="QMh-bj-B6h"/>
+                                            <constraint firstItem="B4V-9W-618" firstAttribute="top" secondItem="oy9-gS-FpU" secondAttribute="bottom" id="VGL-go-ZOC"/>
+                                            <constraint firstAttribute="bottom" secondItem="NmH-fp-irE" secondAttribute="bottom" constant="50" id="aSt-bF-oLK"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="B4V-9W-618" secondAttribute="trailing" constant="20" id="dQt-JU-Thk"/>
+                                            <constraint firstItem="B4V-9W-618" firstAttribute="leading" secondItem="0f2-Gk-7VR" secondAttribute="leadingMargin" constant="20" id="fCb-Yi-kxh"/>
+                                            <constraint firstAttribute="trailing" secondItem="NmH-fp-irE" secondAttribute="trailing" id="llD-fD-5fT"/>
+                                            <constraint firstItem="NmH-fp-irE" firstAttribute="top" secondItem="0f2-Gk-7VR" secondAttribute="top" id="msT-3k-f7I"/>
+                                            <constraint firstItem="NmH-fp-irE" firstAttribute="leading" secondItem="0f2-Gk-7VR" secondAttribute="leading" id="nzc-Nf-b0E"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="NmH-fp-irE" id="NC0-Zb-q5M"/>
+                                            <outlet property="purchasedLbl" destination="oy9-gS-FpU" id="zdi-Ht-oW5"/>
+                                            <outlet property="titleLbl" destination="B4V-9W-618" id="KmP-91-wGX"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tV2-IL-SXK">
@@ -94,4 +130,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LA.jpg" width="2200" height="1528"/>
+    </resources>
 </document>
