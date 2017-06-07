@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreData
+import StoreKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     var gallery = [Art]()
+    var products = [SKProduct]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +28,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if gallery.count == 0 {
             
             createArt("LA", productIdentifier: "", imageName: "LA.jpg", purchased: true)
-            createArt("sunrise", productIdentifier: "", imageName: "sunrise.jpg", purchased: false)
-            createArt("trees", productIdentifier: "", imageName: "trees.jpg", purchased: false)
+            createArt("sunrise", productIdentifier: "com.losAngelesBoy.Store.sunrise", imageName: "sunrise.jpg", purchased: false)
+            createArt("trees", productIdentifier: "com.losAngelesBoy.Store.tree", imageName: "trees.jpg", purchased: false)
             
             updateGallery()
             self.collectionView.reloadData()
         }
+        
+        requestProducts()
+    }
+    
+    func requestProducts() {
+        let ids : Set<String> = ["com.losAngelesBoy.Store.tree", "com.losAngelesBoy.Store.sunrise"]
+        let productsRequest = SKProductsRequest(productIdentifiers: ids)
+        productsRequest.delegate = self
+        productsRequest.start()
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        print("Products ready: \(response.products.count)")
+        print("Products not ready: \(response.invalidProductIdentifiers.count)")
+        self.products = response.products
+        self.collectionView.reloadData()
     }
     
     func createArt(_ title:String, productIdentifier:String, imageName:String, purchased:Bool) {
@@ -93,6 +111,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.layoutIfNeeded()
             blurView.frame = cell.imageView.bounds
             cell.imageView.addSubview(blurView)
+            
+            for product in self.products {
+                if product.productIdentifier == art.productIdentifier {
+                    
+                    let formatter = NumberFormatter()
+                    formatter.numberStyle = NumberFormatter.Style.currency
+                    formatter.locale = product.priceLocale
+                    if let price = formatter.string(from: product.price) {
+                        cell.purchasedLbl.text = "Buy for \(price)"
+                    } else {
+                        cell.purchasedLbl.text = "No Info!"
+                    }
+                } else {
+                    print("productID doesn't match!")
+                    print(product.productIdentifier, "do not match with:", art.productIdentifier ?? "")
+                }
+            }
 
         }
         
