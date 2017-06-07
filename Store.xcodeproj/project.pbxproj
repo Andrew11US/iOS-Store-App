@@ -15,6 +15,9 @@
 		90365B7D1EE74C86004C70A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90365B7B1EE74C86004C70A9 /* LaunchScreen.storyboard */; };
 		90365B881EE74C86004C70A9 /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90365B871EE74C86004C70A9 /* StoreTests.swift */; };
 		90365B931EE74C86004C70A9 /* StoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90365B921EE74C86004C70A9 /* StoreUITests.swift */; };
+		90936F361EE801650072B864 /* ArtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90936F351EE801650072B864 /* ArtCell.swift */; };
+		90936F481EE80FE90072B864 /* Art+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90936F461EE80FE90072B864 /* Art+CoreDataClass.swift */; };
+		90936F491EE80FE90072B864 /* Art+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90936F471EE80FE90072B864 /* Art+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		90365B8E1EE74C86004C70A9 /* StoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90365B921EE74C86004C70A9 /* StoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUITests.swift; sourceTree = "<group>"; };
 		90365B941EE74C86004C70A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90936F351EE801650072B864 /* ArtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtCell.swift; sourceTree = "<group>"; };
+		90936F461EE80FE90072B864 /* Art+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Art+CoreDataClass.swift"; path = "../Art+CoreDataClass.swift"; sourceTree = "<group>"; };
+		90936F471EE80FE90072B864 /* Art+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Art+CoreDataProperties.swift"; path = "../Art+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +105,13 @@
 		90365B6E1EE74C86004C70A9 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				90365B6F1EE74C86004C70A9 /* AppDelegate.swift */,
-				90365B711EE74C86004C70A9 /* ViewController.swift */,
-				90365B731EE74C86004C70A9 /* Main.storyboard */,
+				90936F3B1EE80B7B0072B864 /* UI */,
 				90365B791EE74C86004C70A9 /* Assets.xcassets */,
-				90365B7B1EE74C86004C70A9 /* LaunchScreen.storyboard */,
-				90365B7E1EE74C86004C70A9 /* Info.plist */,
-				90365B761EE74C86004C70A9 /* Store.xcdatamodeld */,
+				90936F3C1EE80B850072B864 /* Controllers */,
+				90936F3E1EE80B950072B864 /* Model */,
+				90936F3D1EE80B8D0072B864 /* Services */,
+				90936F4A1EE810A10072B864 /* CoreData */,
+				90936F3F1EE80BA50072B864 /* Support Files */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -126,6 +132,57 @@
 				90365B941EE74C86004C70A9 /* Info.plist */,
 			);
 			path = StoreUITests;
+			sourceTree = "<group>";
+		};
+		90936F3B1EE80B7B0072B864 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				90365B731EE74C86004C70A9 /* Main.storyboard */,
+				90365B7B1EE74C86004C70A9 /* LaunchScreen.storyboard */,
+				90936F351EE801650072B864 /* ArtCell.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		90936F3C1EE80B850072B864 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				90365B711EE74C86004C70A9 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		90936F3D1EE80B8D0072B864 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		90936F3E1EE80B950072B864 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		90936F3F1EE80BA50072B864 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				90365B6F1EE74C86004C70A9 /* AppDelegate.swift */,
+				90365B7E1EE74C86004C70A9 /* Info.plist */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		90936F4A1EE810A10072B864 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				90936F461EE80FE90072B864 /* Art+CoreDataClass.swift */,
+				90936F471EE80FE90072B864 /* Art+CoreDataProperties.swift */,
+				90365B761EE74C86004C70A9 /* Store.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +324,10 @@
 			files = (
 				90365B781EE74C86004C70A9 /* Store.xcdatamodeld in Sources */,
 				90365B721EE74C86004C70A9 /* ViewController.swift in Sources */,
+				90936F481EE80FE90072B864 /* Art+CoreDataClass.swift in Sources */,
+				90936F491EE80FE90072B864 /* Art+CoreDataProperties.swift in Sources */,
 				90365B701EE74C86004C70A9 /* AppDelegate.swift in Sources */,
+				90936F361EE801650072B864 /* ArtCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +578,7 @@
 				90365B991EE74C86004C70A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		90365B9A1EE74C86004C70A9 /* Build configuration list for PBXNativeTarget "StoreTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +587,7 @@
 				90365B9C1EE74C86004C70A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		90365B9D1EE74C86004C70A9 /* Build configuration list for PBXNativeTarget "StoreUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +596,7 @@
 				90365B9F1EE74C86004C70A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
