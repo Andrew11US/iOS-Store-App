@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import StoreKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -50,6 +50,55 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         print("Products not ready: \(response.invalidProductIdentifiers.count)")
         self.products = response.products
         self.collectionView.reloadData()
+    }
+    
+    @IBAction func restoreBtnTapped(_ sender: Any) {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                print("Purchased")
+                unlockArt(transaction.payment.productIdentifier)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                break
+            case .failed:
+                print("Failed")
+//                unlockArt(transaction.payment.productIdentifier)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                break
+            case .restored:
+                print("Restored")
+                unlockArt(transaction.payment.productIdentifier)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                break
+            case .purchasing:
+                print("Purchasing")
+                break
+            case .deferred:
+                print("Deffered")
+                break
+            }
+        }
+    }
+    
+    func unlockArt(_ productIdentifier:String) {
+        
+        for art in self.gallery {
+            if art.productIdentifier == productIdentifier {
+                art.purchased = true
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.managedObjectContext
+                do {
+                    try context.save()
+                } catch {}
+                self.collectionView.reloadData()
+            }
+        }
+        
     }
     
     func createArt(_ title:String, productIdentifier:String, imageName:String, purchased:Bool) {
@@ -132,6 +181,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let art = self.gallery[indexPath.row]
+        if !art.purchased {
+            for product in self.products {
+                if product.productIdentifier == art.productIdentifier {
+                    SKPaymentQueue.default().add(self)
+                    let payment = SKPayment(product: product)
+                    SKPaymentQueue.default().add(payment)
+                }
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
